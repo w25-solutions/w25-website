@@ -14,12 +14,12 @@ export default function Header()
                 </div>
                 <div>
                     <Link href="/">Home</Link>
-                    <Link href="/">Company</Link>
-                    <Link href="/">Services</Link>
-                    <Link href="/">Contact</Link>
+                    <Link href="/">Mission</Link>
+                    <Link href="/">Portfolio</Link>
+                    <Link href="/">Blog</Link>
                 </div>
                 <div>
-                    <Button>Quotation</Button>
+                    <Button>Contact</Button>
                 </div>
             </div>
         </header>
