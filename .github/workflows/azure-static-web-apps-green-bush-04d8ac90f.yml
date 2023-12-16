@@ -21,20 +21,20 @@ jobs:
         run: npm install
       - name: Build
         run: npm run build
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: build-output-to-deploy
-          path: ./your_build_output_path
+          path: ./out
 
   deploy:
     needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4
         with:
           name: build-output-to-deploy
-          path: ./your_build_output_path
+          path: ./
       - name: Deploy
         uses: Azure/static-web-apps-deploy@v1
         with:
@@ -43,6 +43,6 @@ jobs:
           action: "upload"
           app_location: "/" # This should be the path to your app's build output
           api_location: "" # If you have an API, specify its path here
-          output_location: "./your_build_output_path"
+          output_location: "./"
           skip_app_build: true
           skip_api_build: true
