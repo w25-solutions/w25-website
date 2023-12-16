@@ -12,7 +12,7 @@ variables:
 stages:
   - stage: Build
     jobs:
-      build:
+      - job: build
         runs-on: {{ vmImageName }}
         name: Building
         steps:
@@ -33,7 +33,9 @@ stages:
             inputs:
               targetPath: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)' 
               artifactName: $(artifactName)
-      deploy:
+  - stage: Deploy
+    jobs:
+      - job: deploy
         runs-on: {{ vmImageName }}
         name: Deploying
         steps:
