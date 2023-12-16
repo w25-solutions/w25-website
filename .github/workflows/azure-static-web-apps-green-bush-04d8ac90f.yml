@@ -5,56 +5,44 @@ on:
     branches:
       - temp
 
-variables:
-  vmImageName: 'ubuntu-latest'
-  artifactName: 'build-output-to-deploy'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: true
+          lfs: false
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16' # or other LTS version
+      - name: Install
+        run: npm install
+      - name: Build
+        run: npm run build
+      - uses: actions/upload-artifact@v3
+        with:
+          name: build-output-to-deploy
+          path: ./your_build_output_path
 
-stages:
-  - stage: Build
-    jobs:
-      - job: build
-        runs-on: {{ vmImageName }}
-        name: Building
-        steps:
-          - uses: actions/checkout@v3
-            with:
-              submodules: true
-              lfs: false
-          - name: Setup Node.js 20
-            uses: actions/setup-node@v3
-            with:
-              node-version: 20
-          - name: Install
-            run: npm install
-          - name: npm run build
-            run: npm run build                  
-          - task: PublishPipelineArtifact@1
-            displayName: Publish do Artifact
-            inputs:
-              targetPath: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)' 
-              artifactName: $(artifactName)
-  - stage: Deploy
-    jobs:
-      - job: deploy
-        runs-on: {{ vmImageName }}
-        name: Deploying
-        steps:
-          - task: DownloadPipelineArtifact@2
-            displayName: Downloading Artifact
-            inputs:
-              buildType: 'current'
-              artifactName: $(artifactName)
-              targetPath: '$(System.DefaultWorkingDirectory)/publish'        
-          - name: Deploying
-            id: deploy
-            uses: Azure/static-web-apps-deploy@v1
-            with:
-              azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_GREEN_BUSH_04D8AC90F }}
-              repo_token: ${{ secrets.GITHUB_TOKEN }} 
-              action: "upload"
-              app_location: "/"
-              api_location: ""
-              output_location: "/publish"
-              skip_app_build: true
-              skip_api_build: true
-            
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/download-artifact@v3
+        with:
+          name: build-output-to-deploy
+          path: ./your_build_output_path
+      - name: Deploy
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          action: "upload"
+          app_location: "/" # This should be the path to your app's build output
+          api_location: "" # If you have an API, specify its path here
+          output_location: "./your_build_output_path"
+          skip_app_build: true
+          skip_api_build: true
