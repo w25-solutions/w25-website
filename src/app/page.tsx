@@ -1,9 +1,12 @@
 import styles from './page.module.scss';
-import Button from "@/components/button/button";
+import Head from "next/head";
 
 export default function Home() {
   return (
       <div className={styles.container}>
+        <Head>
+          <title>W25 - Discover the Future, Build the Now</title>
+        </Head>
         <header>
           <div className={styles.wrapper}>
             <div>
@@ -14,34 +17,26 @@ export default function Home() {
             <div>
             </div>
             <div>
-              <a href="https://k81wwyjyzxu.typeform.com/to/moje9xeW" target="_blank">
-                <Button>Orçamento</Button>
-              </a>
             </div>
           </div>
         </header>
         <main>
           <div className={styles.cta}>
-            <h2>Solucionando desafios Únicos com Softwares Personalizados</h2>
-            <p>Sua empresa merece soluções que se encaixem perfeitamente em suas necessidades</p>
-          </div>
-          <p>Entre em contato pelo e-mail contato@w25.com.br</p>
-          <div className={styles.right}>
-            <a href="mailto:contato@w25.com.br">
-              <Button>Enviar E-mail</Button>
-            </a>
-            &nbsp;&nbsp;
-            <a href="https://k81wwyjyzxu.typeform.com/to/moje9xeW" target="_blank">
-              <Button>Solicitar Orçamento</Button>
-            </a>
+            <h2>Discover the Future, Build the Now</h2>
+            <p>
+              At our company, our mission is to revolutionize how individuals and businesses interact with technology.
+            </p>
+            <p>
+              We're dedicated to creating innovative products that automate and optimize tasks, enhancing efficiency and productivity. Our vision is to set the standard for automation and optimization, both personally and professionally.
+            </p>
+            <p>
+              Our commitment to innovation, customer-centric design, and efficiency drives us to empower businesses and improve the quality of life. We value sustainability, adaptability, collaboration, integrity, and maintain a global perspective in all we do.
+            </p>
           </div>
         </main>
         <footer>
           <p>
-            <a href="/">contato@w25.com.br</a>
-          </p>
-          <p>
-            São José do Rio Preto - SP
+            💡 🚀
           </p>
         </footer>
       </div>

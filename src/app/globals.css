@@ -20,8 +20,16 @@ a {
   }
 }
 
+@keyframes backgroundShift {
+  0% { background-position: 0 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0 50%; }
+}
+
 body {
+  background: linear-gradient(270deg, #0A192F, #212121, #0A192F);
+  background-size: 400% 400%;
+  animation: backgroundShift 15s ease infinite;
   margin: 0;
   padding: 0;
-  background-color: #fff;
 }
